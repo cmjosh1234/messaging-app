@@ -6,17 +6,23 @@ import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import SidebarChats from './SidebarChats';
+import db from './firebase'
+import {auth,provider} from "./firebase"
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import SidebarChat from './SidebarChat'
+toast.configure();
 
 function Sidebar() {
-
-  // method to capture our message
-  const AddNewChat =()=>{
-    const chatname = prompt("Enter your message here")
+ 
+  //  method to capture our message
+  const  AddNewChat =()=>{
+    const chatname= prompt("Enter you message here")
     if(chatname){
-      console.log(chatname)
+        toast.success('Mesage captured',{position:toast.POSITION.TOP_RIGHT})
+        console.log(chatname)
     }
-  }
+ }
   return (
     <div className="side-bar">
            <div className="sidebar-header">
@@ -34,15 +40,16 @@ function Sidebar() {
             </div>
            </div>
 
-          <div className="sidebar-search">
-            <div className="search-container">
-              <SearchIcon/>
-              <input type="text" placeholder="search or start new chat"/>
-            </div>
-          </div>
+        <div className="sidebar-search">
+          <div className="search-container">
+            <SearchIcon/>
+            <input type="text" placeholder="Search or start new chat"/>
+          </div>   
+        </div>
 
-          <div className="sidebar-chats">
-            <div onClick={AddNewChat} className="chat-head">
+        {/* side bar chats */}
+        <div className="sidebar-chats">
+            <div onClick={AddNewChat}  className="chat-head">
               <h2>Add new Chat</h2>
             </div>
             <SidebarChats/>
@@ -81,9 +88,8 @@ function Sidebar() {
             <SidebarChats/>
             <SidebarChats/>
             <SidebarChats/>
-            <SidebarChats/>
-            
-          </div>
+
+        </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import "./Sidebar.css"
 import {Avatar, IconButton} from "@material-ui/core"
 import { DonutLarge } from '@material-ui/icons'
@@ -14,15 +14,39 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 function Sidebar() {
- 
+   const[rooms,setRooms]=useState([])
+
+
   //  method to capture our message
   const  AddNewChat =()=>{
-    const chatname= prompt("Enter you message here")
+    const chatname= prompt("Enter your message here")
     if(chatname){
-        toast.success('Mesage captured',{position:toast.POSITION.TOP_RIGHT})
-        console.log(chatname)
+        db.collection('Rooms').add({
+          name:chatname
+        })
+    toast.success('Channel Successfully Created',{position:toast.POSITION.TOP_RIGHT})
+       
     }
  }
+      // React hook to render our channels from db
+        useEffect(()=>{
+           const unsubscribe = db.collection('Rooms').onSnapshot(snap=>{
+              setRooms(snap.docs.map(doc=>(
+                {
+                 data:doc.data(),
+                 id:doc.id 
+                }
+              )))
+           })
+
+           return ()=>{
+             unsubscribe()
+           }
+          
+        },[])
+
+
+
   return (
     <div className="side-bar">
            <div className="sidebar-header">
@@ -50,45 +74,14 @@ function Sidebar() {
         {/* side bar chats */}
         <div className="sidebar-chats">
             <div onClick={AddNewChat}  className="chat-head">
-              <h2>Add new Chat</h2>
+              <h2>Add New Channel</h2>
             </div>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-            <SidebarChats/>
-
+            {
+              rooms.map(res=>(
+                <SidebarChats key='id' id={res.id} channelname={res.data['name']}/>
+              ))
+            }
+   
         </div>
     </div>
   )

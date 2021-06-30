@@ -7,7 +7,7 @@ function SidebarChats() {
     <div className="chats">
       <Avatar src='https://avatars.dicebear.com/api/human/999.svg'/>
      <div className="chat-info">
-       <h2>Mesage Title</h2>
+       <h2>{channelname}</h2>
        <p>Hello guys hows the build</p>
      </div>
     </div>

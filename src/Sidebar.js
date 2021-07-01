@@ -10,11 +10,13 @@ import db from './firebase'
 import {auth,provider} from "./firebase"
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useStateValue } from './StateProvider';
 // import SidebarChat from './SidebarChat'
 toast.configure();
 
 function Sidebar() {
    const[rooms,setRooms]=useState([])
+   const[{user}]=useStateValue()
 
 
   //  method to capture our message
@@ -44,13 +46,13 @@ function Sidebar() {
            }
           
         },[])
-
+ 
 
 
   return (
     <div className="side-bar">
            <div className="sidebar-header">
-               <Avatar/>
+               <Avatar src={user?.photoURL}/>
                <div className="header-right">
                   <IconButton>
                   <DonutLarge/>
@@ -78,10 +80,10 @@ function Sidebar() {
             </div>
             {
               rooms.map(res=>(
-                <SidebarChats key='id' id={res.id} channelname={res.data['name']}/>
+                <SidebarChats key='id' id={res.id} channelname={res.data.name} />
               ))
             }
-   
+            
         </div>
     </div>
   )

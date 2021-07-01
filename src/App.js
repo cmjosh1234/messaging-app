@@ -1,29 +1,58 @@
 import logo from './logo.svg';
-import React from 'react';
+import React,{useEffect} from "react";
 import './App.css';
 import Sidebar from './Sidebar';
 import MainChat from './MainChat';
-import { BrowserRouter as Router, Switch,Route, Link} from "react-router-dom"
-import Login from './Login';
-
+import Login from "./Login"
+import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { useStateValue } from './StateProvider';
+import {auth} from "./firebase"
 function App() {
+  const[{user},dispatch]=useStateValue()
+
+   // functionality to manipulate our state
+      useEffect(()=>{
+        const unsubscribe = auth.onAuthStateChanged(authuser=>{
+          if(authuser){
+            dispatch({
+              type:'SET_USER',
+              user:authuser
+            })
+          }
+          else{
+            dispatch({
+              type:'SET_USER',
+              user:null
+            })
+          }     
+        }) 
+        return ()=>{
+          unsubscribe()
+        }    
+        
+      },[])
+  console.log(user)
   return (
     <div className="app">
-       <div className="main-body">
-        <Router>
-          <Switch>
-            <Route path='/'>
-             <Sidebar/>
-             <MainChat/>
+       {!user?(
+      <Login/>
+     ):(
+      <div className="main-body">
+      <Router>
+        <Switch>
+            <Route exact path="/"> 
             </Route>
-            <Route path= '/login'>
-              <Login/>
+            <Route exact path='/rooms/:roomId'>
+            <Sidebar/>
+              <MainChat/>
             </Route>
-          </Switch>
-        </Router>
-          
-       </div>
-       {/* <h1>This is our messaging app home page component</h1> */}
+        </Switch>
+      </Router> 
+    </div>
+     )
+
+    }
+       
 
     </div>
   );

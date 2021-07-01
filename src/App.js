@@ -41,10 +41,12 @@ function App() {
       <Router>
         <Switch>
             <Route exact path="/"> 
-            </Route>
-            <Route exact path='/rooms/:roomId'>
             <Sidebar/>
-              <MainChat/>
+            <MainChat/>
+            </Route>
+            <Route exact path="/rooms/:roomId">
+              <Sidebar/>
+               <MainChat/>
             </Route>
         </Switch>
       </Router> 

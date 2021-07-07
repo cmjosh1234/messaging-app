@@ -95,6 +95,15 @@ const useStyles = makeStyles({
              setOpen(false)
            }
 
+           //functio to clear chat messages
+           //const clearMessages=()=>{
+             if(roomId){}
+             //const ref = db.collection('Rooms').doc(roomId).collection('Messages');
+             //ref.delete();
+             //toast.success('Messages Cleared',{position:toast.POSITION.TOP_RIGHT})
+              //    setOpen(false)
+           //}
+
   return (
     <div className="chat-field">
         <div className="message-header">

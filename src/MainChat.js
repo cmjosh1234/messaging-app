@@ -28,6 +28,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
+import InputEmoji from "react-input-emoji"; 
 
 const useStyles = makeStyles({
       avatar: {
@@ -148,10 +149,12 @@ const useStyles = makeStyles({
         </div>
 
         <div className="message-footer">
-            <InsertEmoticon/>
+           
             <form>
-             <input value={message} onChange={e=>setMessage(e.target.value)} placeholder="Type a message here" type="text"/>   
-             <button onClick={sendMessage} type="submit">Send Message</button>
+             <InputEmoji value={message} 
+             onChange={setMessage} 
+             placeholder="Type a message"/>
+            <button onClick={sendMessage} type="submit">Send Message</button>
             </form>
         </div>
 

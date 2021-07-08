@@ -8,7 +8,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "firebase": "^8.6.8",
+    "firebase": "^8.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-input-emoji": "^4.0.8",
@@ -41,5 +41,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmjosh1234/messaging-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmjosh1234/messaging-app/issues"
+  },
+  "homepage": "https://github.com/cmjosh1234/messaging-app#readme"
 }

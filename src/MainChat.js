@@ -28,7 +28,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
-import InputEmoji from "react-input-emoji"; 
+import InputEmoji from "react-input-emoji";
 
 const useStyles = makeStyles({
       avatar: {
@@ -45,6 +45,8 @@ const useStyles = makeStyles({
       const [messages,setMessages]=useState([])
       const [{user},dispatch]=useStateValue()
       const [channelName, setChannel]=useState('')
+      const[img,setImg]=useState('')
+     
    
       
       //method to open dialog
@@ -55,6 +57,10 @@ const useStyles = makeStyles({
       const handleClose=()=>{
             setOpen(false)
       }
+      //react hook to change images in chatroom
+       useEffect(()=>{
+          setImg(Math.floor(Math.random()*5000))
+       },[roomId])
 
       //function to send message to our database
        const sendMessage=(e)=>{
@@ -112,7 +118,7 @@ const useStyles = makeStyles({
   return (
     <div className="chat-field">
         <div className="message-header">
-        <Avatar src='https://avatars.dicebear.com/api/human/88.svg'/>
+        <Avatar src={`https://avatars.dicebear.com/api/human/${img}.svg`}/>
           <div className="header_info">
           <h3>{channelName}</h3>
           <p>Last seen &nbsp;
@@ -149,11 +155,14 @@ const useStyles = makeStyles({
         </div>
 
         <div className="message-footer">
-           
+        
             <form>
-             <InputEmoji value={message} 
-             onChange={setMessage} 
-             placeholder="Type a message"/>
+
+            <InputEmoji
+            value={message}
+            onChange={setMessage}
+            placeholder="Type a message"
+           /> 
             <button onClick={sendMessage} type="submit">Send Message</button>
             </form>
         </div>
